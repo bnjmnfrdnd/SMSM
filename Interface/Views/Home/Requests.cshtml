@@ -5,27 +5,26 @@
 @model Interface.Models.Request
 
 
-<div id="requestListView" class="row list-view">
-    <div class="col-12">
-        <div class="card-box">
-            <div class="row">
-                <div class="col-6" align="left">
-                    <h2>Requests</h2>
+    <div id="requestListView" class="row list-view">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-6" align="left">
+                        <h2 class="custom-h2">Requests</h2>
+                    </div>
+                    <div class="col-6" align="right">
+                        <input type="button" onclick="getRequests()" value="Reset" class="btn btn-secondary" />
+                        <input type="button" onclick="addRequest()" value="Add" class="btn btn-primary" />
+                    </div>
                 </div>
-                <div class="col-6" align="right">
-                    <input type="button" onclick="getRequests()" value="Reset" class="btn btn-secondary" />
-                    <input type="button" onclick="addRequest()" value="Add" class="btn btn-primary" />
-                </div>
-
-            </div>
-            <div class="mt-3">
-                <div class="table-responsive table-striped">
-                    <table id="requestsDataTable" class="table table-bordered dt-responsive nowrap"></table>
-                </div>
+                    <div class="mt-3">
+                        <div class="table-responsive table-striped">
+                            <table id="requestsDataTable" class="table table-bordered dt-responsive nowrap"></table>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
-</div>
 
 <div id="requestDetailView" class="row detail-view">
     <div class="col-12">
@@ -183,8 +182,8 @@
                         {
                             data: 'id',
                             render: function (data, type, row) {
-                                var edit = '<button title="Edit" class="btn btn-icon btn-light" onclick="editRequest(\'' + data + '\')"><i class="mdi mdi-square-edit-outline"></i></button>';
-                                var del = '<button title="Edit" class="btn btn-icon btn-danger" onclick="deleteRequest(\'' + data + '\')"><i class="mdi mdi-delete"></i></button>';
+                                var edit = '<button title="Edit" class="btn btn-icon" onclick="editRequest(\'' + data + '\')"><i class="glyphicon glyphicon-pencil"></i></button>';
+                                var del = '<button title="Delete" class="btn" onclick="deleteRequest(\'' + data + '\')"><span class="glyphicon glyphicon-remove"></span></button>';
                                 return edit + del;
                             },
                             responsivePriority: 0,

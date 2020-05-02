@@ -2,7 +2,36 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="title-box">
+    <h1>Simple Media Server Management (SMSM)</h1>
+    <p>A simple interface for managing media server content and requests.</p>
+</div>
+<div class="col-12">
+    <div class="row">        
+        <div class="col-lg-4 order-0">
+            <a class="nav-link text-light glow" asp-area="" asp-controller="Home" asp-action="Requests">
+                <div class="page-box">
+                    <h2 class="custom-h2">Requests</h2>
+                    <p>A collection of your movies hosted on your media server.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 order-1">
+            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Movies">
+                <div class="page-box">
+                    <h2 class="custom-h2">Movies</h2>
+                    <p>Create and manage requests for your content.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 order-2">
+            <a class="nav-link text-light glow" asp-area="" asp-controller="Home" asp-action="TVShows">
+                <div class="page-box">
+                    <h2 class="custom-h2">TV Shows</h2>
+                    <p>A collection of your TV shows hosted on your media server.</p>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>

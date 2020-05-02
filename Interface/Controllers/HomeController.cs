@@ -52,6 +52,11 @@ namespace Interface.Controllers
             return View();
         }
 
+        public IActionResult TVShows()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -124,6 +129,83 @@ namespace Interface.Controllers
                 database.SaveChanges();
 
                 return View("Movies");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region TV Shows
+
+        [HttpGet]
+        public ActionResult GetTVShows()
+        {
+            try
+            {
+                List<TV> tvshows = database.TV.AsNoTracking().ToList();
+
+                return Json(tvshows);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTVShow(int tvShowId)
+        {
+            try
+            {
+                TV tvshow = database.TV.AsNoTracking().SingleOrDefault(i => i.ID == tvShowId);
+
+                return Json(tvshow);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SaveTVShow(TV tvshow)
+        {
+            try
+            {
+                List<TV> tvshows = database.TV.AsNoTracking().ToList();
+
+                if (tvshow != null)
+                {
+
+                    if (tvshow.Title == null)
+                    {
+                        return Json("A title is required");
+                    }
+
+                    if (tvshow.Year == null)
+                    {
+                        return Json("A year is required");
+                    }
+
+                    foreach (TV tv in tvshows)
+                    {
+                        if (tvshow.Title == tv.Title && tvshow.Year == tv.Year)
+                        {
+                            return Json("A TV show with this title and year already exists");
+                        }
+                    }
+
+                    if (tvshow.ID == 0) database.Entry(tvshow).State = EntityState.Added;
+
+                    else database.Entry(tvshow).State = EntityState.Modified;
+                }
+
+                database.SaveChanges();
+
+                return View("TVShows");
             }
             catch (Exception ex)
             {

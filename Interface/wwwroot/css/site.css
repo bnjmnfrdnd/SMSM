@@ -24,6 +24,7 @@ a {
   border-color: #1861ac;
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -62,10 +63,149 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+/* Custom CSS
+-------------------------------------------------- */
+
+.title-box {
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: none;
+    border-bottom: 1px;
 }
+
+    .title-box h1 {
+        /*text-shadow: 0 0 2px white, 0 0 25px #a01099, 0 0 5px #a01099;*/
+        color: white;
+        font-size: 35px;
+        /*font-family: 'Rock Salt', cursive;*/
+    }
+
+.page-box:hover {
+    /*border: solid 0.5px #29ebff;*/
+}
+
+.page-box {
+    border: none; 
+    padding: 25px;
+    margin-top: 25px;
+    text-decoration: none;
+}
+
+    .page-box:hover > .custom-h2 {
+        color: #CC527A;
+    }
+
+.card-box {
+    margin-top: 25px;
+    background-color: transparent;
+}
+
+.custom-h2 {
+    color: white;
+    font-size: 35px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Baloo Bhaina 2', cursive;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-image: url("~/img/mountain-scape.jpg");
+    background-color: #363636;
+    /*background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: center;*/
+    /*background: linear-gradient(black, #a01099);*/
+}
+
+.dataTables_info {
+    color: white;
+}
+
+.navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid #a01099;
+    border-radius: .25rem;
+}
+
+    .navbar-toggler:focus, .navbar-toggler:hover {
+        text-decoration: none
+    }
+
+.custom-navbar {
+    background-color: #474747;
+}
+
+.custom-navlink {
+    color: #A8A7A7 !important;
+}
+
+    .custom-navlink:hover {
+        color: #CC527A !important;
+    }
+
+footer {
+    position: relative;
+    bottom: 0;
+    text-align: center;
+    border: none;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 30px; /* Vertically center the text there */
+}
+
+.custom-footer {
+    background-color: #474747;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-footer a {
+    color: #CC527A !important;
+}
+
+.custom-footer p {
+    margin: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #CC527A;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    background-color: #CC527A;
+}
+
+    .table td, .table th {
+        vertical-align: top;
+    }
+
+    .table thead th {
+        background-color: #474747;
+        color: #A8A7A7;
+    }
+
+    .table tbody + tbody {
+    }

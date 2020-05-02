@@ -1,0 +1,27 @@
+﻿input[type=text] {
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid red;
+    background-color: rgba(0, 0, 0, 0);
+    transition: height 1s;
+    -webkit-transition: height 1s;
+    outline: none;
+    text-transform: capitalize;
+}
+
+    input[type=text]:active, input[type=text]:focus {
+        color: white;
+        border: none;
+        border-bottom: 2px solid red;
+        background-color: rgba(0, 0, 0, 0);
+        transition: height 1s;
+        -webkit-transition: height 1s;
+        outline: none;
+        box-shadow: none !important;
+    }
+
+label {
+    font-weight: 600;
+}

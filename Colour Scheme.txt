@@ -1,0 +1,3 @@
+Primary: #a01099- Pink/Purple
+Secondary: #f5ba06 - Yellow/Orange
+Accent: #29ebff - Blue/Cyan

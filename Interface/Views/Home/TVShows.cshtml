@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "TV Shows";
+}
+
+@model Interface.Models.TV
+
+
+<div id="tvShowListView" class="row list-view">
+    <div class="col-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-6" align="left">
+                    <h2>TV Shows</h2>
+                </div>
+                <div class="col-6" align="right">
+                    <input type="button" onclick="getTVShows()" value="Reset" class="btn btn-secondary" />
+                    <input type="button" onclick="addTVShow()" value="Add" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="mt-3">
+                <table id="tvShowDataTable" class="table table-bordered table-striped dt-responsive nowrap"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tvShowDetailView" class="row detail-view">
+    <div class="col-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-6" align="left">
+                    <h4 id="tvShowTitleHeading" class="header-title">Add TV Show</h4>
+                </div>
+                <div class="col-6" align="right">
+                    <input type="button" onclick="showTVShowList()" value="Back" class="btn btn-danger" />
+
+                </div>
+            </div>
+            <form method="post" autocomplete="off" asp-action="SaveTVShow" asp-controller="Home">
+                <div hidden>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" asp-for="ID"></label>
+                                <input type="text" id="tvShowIDInput" class="form-control" asp-for="ID" />
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <fieldset class="form-group">
+                            <label class="form-label semibold" for="tvShowTitleInput" asp-for="Title"></label>
+                            <input type="text" id="tvShowTitleInput" class="form-control" asp-for="Title" />
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                        <fieldset class="form-group">
+                            <label class="form-label semibold" for="tvShowYearInput" asp-for="Year"></label>
+                            <input type="text" id="tvShowYearInput" class="form-control" asp-for="Year" />
+                        </fieldset>
+                    </div>
+                </div>
+                <input type="button" onclick="showTVShowList()" value="Cancel" class="btn btn-danger" />
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        showTVShowList();
+        getTVShows();
+    });
+
+    function addTVShow() {
+        clearTVShowDetailForm();
+        showTVShowDetail();
+    }
+
+    function getTVShows() {
+        $.ajax({
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            url: "GetTVShows",
+            dataType: "json",
+            success: function (response) {
+                var tvShowDataTable = $("#tvShowDataTable").dataTable({
+                    responsive: true,
+                    searching: true,
+                    ordering: true,
+                    autoWidth: false,
+                    deferRender: true,
+                    select: true,
+                    paging: true,
+                    pageLength: 25,
+                    data: response,
+                    destroy: true,
+                    columns: [
+                        {
+                            title: "Title",
+                            data: "title",
+                            responsivePriority: 0
+                        },
+                        {
+                            title: "Year",
+                            data: "year",
+                            responsivePriority: 0
+                        },
+                        {
+                            data: 'id',
+                            render: function (data, type, row) {
+                                var edit = '<button title="Edit" class="btn btn-icon btn-light" onclick="editTVShow(\'' + data + '\')"><i class="mdi mdi-square-edit-outline"></i></button>';
+                                return edit;
+                            },
+                            responsivePriority: 0,
+                            orderable: false,
+                            width: 10
+                        }
+                    ],
+                    initComplete: function (settings, json) { }
+                });
+
+                tvShowDataTable.on("page.dt", function () {
+                    $("html, body").animate({
+                        scrollTop: 0
+                    },
+                        "slow"
+                    );
+                });
+            }
+        });
+    }
+
+    function clearTVShowDetailForm() {
+        $("#tvShowIDInput").val('');
+        $("#tvShowTitleInput").val('');
+        $("#tvShowYearInput").val('');
+        $("#tvShowTitleHeading").html('Add TV Show');
+    }
+
+    function showTVShowDetail() {
+        $("#tvShowListView").hide();
+        $("#tvShowDetailView").show();
+    }
+
+    function showTVShowList() {
+        $("#tvShowListView").show();
+        $("#tvShowDetailView").hide();
+    }
+
+    function saveTVShow() {
+        $('#tvShowForm').validate({ // not working
+            rules: {
+                tvShowTitleInput: {
+                    required: true
+                },
+                tvShowYearInput: {
+                    required: true
+                },
+            },
+            messages: {
+                tvShowTitleInput: {
+                    required: "TV Show title is required"
+                },
+                tvShowYearInput: {
+                    required: "TV Show year is required"
+                },
+            },
+            submitHandler: function (form) {
+                showLoading(true);
+
+                var tvShow = {
+                    ID: $("#tvShowIDInput").val(),
+                    Title: $("#tvShowTitleInput").val(),
+                    Year: $("#tvShowYearInput").val(),
+                };
+
+                $.ajax({
+                    method: 'post',
+                    contentType: 'application/json; charset=utf-8',
+                    url: 'SaveTVShow',
+                    dataType: 'json',
+                    data: JSON.stringify(tvShow),
+                    success: function (response) {
+                        getTVShows();
+                        showTVShowList();
+                        alert(response);
+                    },
+                    error: function (xhr, err) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+        });
+    }
+
+    function editTVShow(tvShowId) {
+        clearTVShowDetailForm();
+
+        $.ajax({
+            method: 'get',
+            url: "GetTVShow?tvShowId=" + tvShowId,
+            dataType: 'json',
+            success: function (response) {
+                $("#tvShowTitleHeading").html(response.title);
+                $("#tvShowIDInput").val(response.id);
+                $("#tvShowTitleInput").val(response.title);
+                $("#tvShowYearInput").val(response.year);
+                showTVShowDetail();
+            },
+            error: function (xhr, err) {
+                alert(xhr.responseText);
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
