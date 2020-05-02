@@ -9,7 +9,6 @@ namespace Interface.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-
         }
 
         public ApplicationDbContext()
@@ -23,6 +22,7 @@ namespace Interface.Data
 
         public DbSet<AudioBook> AudioBooks { get; set; } 
         public DbSet<Request> Requests { get; set; } 
+        public DbSet<RequestUser> RequestUsers { get; set; } 
         public DbSet<Movie> Movies { get; set; } 
         public DbSet<TV> TV { get; set; }
 
@@ -48,6 +48,12 @@ namespace Interface.Data
             {
                 entity.Property(i => i.ID).UseIdentityColumn();
                 entity.Property(i => i.Title).IsRequired();
+            });
+
+            builder.Entity<RequestUser>(entity =>
+            {
+                entity.Property(i => i.ID).UseIdentityColumn();
+                entity.Property(i => i.Name).IsRequired();
             });
 
             base.OnModelCreating(builder);

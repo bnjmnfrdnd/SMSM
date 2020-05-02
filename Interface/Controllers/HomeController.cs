@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Interface.Models;
 using Interface.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ServiceModel.Syndication;
 
 namespace Interface.Controllers
 {
@@ -222,13 +223,9 @@ namespace Interface.Controllers
         {
             try
             {
-                
-
                 List<Request> requests = database.Requests.AsNoTracking().Where(i => i.IsComplete == false).ToList();
-
-               
-
-                    return Json(requests);
+                
+                return Json(requests);
             }
             catch (Exception ex)
             {
@@ -346,6 +343,29 @@ namespace Interface.Controllers
                 return Json(ex.Message);
             }
         }
+
+        #endregion
+
+        #region Request Users
+
+        [HttpGet]
+        public JsonResult GetRequestUsers()
+        {
+            try
+            {
+                List<RequestUser> requestUsers = database.RequestUsers.AsNoTracking().OrderBy(x => x.Name).ToList();
+
+                return Json(requestUsers);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region RSS
 
         #endregion
     }
