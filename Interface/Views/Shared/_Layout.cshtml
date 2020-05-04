@@ -7,6 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A simple media server management tool for server hosts and content consumers." />
     <title>@ViewData["Title"] - Interface</title>
 
     <link rel="icon" href="~/img/smsm.svg" />
@@ -51,12 +52,12 @@
                         {
                             <li class="nav-item">
                                 <div class="dropdown">
-                                    <button class="btn dropdown-toggle custom-navlink" type="button" data-toggle="dropdown">
+                                    <button class="btn dropdown-toggle nav-link custom-navlink" type="button" data-toggle="dropdown">
                                         Settings<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="nav-link custom-navlink" asp-area="" asp-controller="Home" asp-action="">Users</a></li>
-                                        <li><a class="nav-link custom-navlink" asp-area="" asp-controller="Home" asp-action="">Request Type</a></li>
+                                        <li><a class="nav-link dropdown-navlink" asp-area="" asp-controller="Home" asp-action="">Users</a></li>
+                                        <li><a class="nav-link dropdown-navlink" asp-area="" asp-controller="Home" asp-action="RequestTypes">Request Type</a></li>
                                     </ul>
                                 </div>
                             </li>

@@ -6,6 +6,16 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Home\Settings.RequestTypes.cshtml" />
+    <Content Remove="Views\Home\Settings.RequestUsers.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Home\Settings.RequestTypes.cshtml" />
+    <None Include="Views\Home\Settings.RequestUsers.cshtml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />

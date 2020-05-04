@@ -2,7 +2,7 @@
 
 namespace Interface.Models
 {
-    public class TV
+    public class TVShows
     {
         [Key]
         public int ID { get; set; }

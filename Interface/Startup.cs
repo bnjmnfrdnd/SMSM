@@ -14,10 +14,9 @@ namespace Interface
         {
             Configuration = configuration;
 
-            using(var client = new ApplicationDbContext())
-            {
-                client.Database.EnsureCreated();
-            }
+            using var client = new ApplicationDbContext();
+            //client.Database.EnsureDeleted(); // Enable this when a new table needs to be added OR the database filename is changed OR the model name is changed.
+            client.Database.EnsureCreated();
         }
 
         public IConfiguration Configuration { get; }

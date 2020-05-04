@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Interface.Models;
 using Interface.Data;
 using Microsoft.EntityFrameworkCore;
-using System.ServiceModel.Syndication;
 
 namespace Interface.Controllers
 {
@@ -35,27 +34,37 @@ namespace Interface.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Home.Index");
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return View("Home.Privacy");
         }
 
         public IActionResult Requests()
         {
-            return View();
+            return View("Request.Home");
         }
 
         public IActionResult Movies()
         {
-            return View();
+            return View("Media.Movies");
         }
 
         public IActionResult TVShows()
         {
-            return View();
+            return View("Media.TVShows");
+        }
+
+        public IActionResult RequestUsers()
+        {
+            return View("Settings.RequestUsers");
+        }
+
+        public IActionResult RequestTypes()
+        {
+            return View("Settings.RequestTypes");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -129,7 +138,7 @@ namespace Interface.Controllers
 
                 database.SaveChanges();
 
-                return View("Movies");
+                return View("Media.Movies");
             }
             catch (Exception ex)
             {
@@ -146,7 +155,7 @@ namespace Interface.Controllers
         {
             try
             {
-                List<TV> tvshows = database.TV.AsNoTracking().ToList();
+                List<TVShows> tvshows = database.TVShows.AsNoTracking().ToList();
 
                 return Json(tvshows);
             }
@@ -161,7 +170,7 @@ namespace Interface.Controllers
         {
             try
             {
-                TV tvshow = database.TV.AsNoTracking().SingleOrDefault(i => i.ID == tvShowId);
+                TVShows tvshow = database.TVShows.AsNoTracking().SingleOrDefault(i => i.ID == tvShowId);
 
                 return Json(tvshow);
             }
@@ -172,11 +181,11 @@ namespace Interface.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveTVShow(TV tvshow)
+        public ActionResult SaveTVShow(TVShows tvshow)
         {
             try
             {
-                List<TV> tvshows = database.TV.AsNoTracking().ToList();
+                List<TVShows> tvshows = database.TVShows.AsNoTracking().ToList();
 
                 if (tvshow != null)
                 {
@@ -191,7 +200,7 @@ namespace Interface.Controllers
                         return Json("A year is required");
                     }
 
-                    foreach (TV tv in tvshows)
+                    foreach (TVShows tv in tvshows)
                     {
                         if (tvshow.Title == tv.Title && tvshow.Year == tv.Year)
                         {
@@ -206,7 +215,7 @@ namespace Interface.Controllers
 
                 database.SaveChanges();
 
-                return View("TVShows");
+                return View("Media.TVShows");
             }
             catch (Exception ex)
             {
@@ -241,7 +250,7 @@ namespace Interface.Controllers
                 List<Request> requests = database.Requests.AsNoTracking().ToList();
 
                 Movie movie = new Movie();
-                TV tvShow = new TV();
+                TVShows tvShow = new TVShows();
 
                 if (request != null)
                 {
@@ -301,7 +310,7 @@ namespace Interface.Controllers
                     database.SaveChanges();
                 }
 
-                return View("Requests");
+                return View("Request.Home");
 
             }
              catch (Exception ex)

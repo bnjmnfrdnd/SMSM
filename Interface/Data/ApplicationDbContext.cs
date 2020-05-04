@@ -6,9 +6,8 @@ namespace Interface.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        {            
         }
 
         public ApplicationDbContext()
@@ -23,8 +22,9 @@ namespace Interface.Data
         public DbSet<AudioBook> AudioBooks { get; set; } 
         public DbSet<Request> Requests { get; set; } 
         public DbSet<RequestUser> RequestUsers { get; set; } 
+        public DbSet<RequestType> RequestTypes { get; set; } 
         public DbSet<Movie> Movies { get; set; } 
-        public DbSet<TV> TV { get; set; }
+        public DbSet<TVShows> TVShows { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,7 +44,7 @@ namespace Interface.Data
                 entity.Property(i => i.IsComplete).HasDefaultValue(0);
             });
             
-            builder.Entity<TV>(entity =>
+            builder.Entity<TVShows>(entity =>
             {
                 entity.Property(i => i.ID).UseIdentityColumn();
                 entity.Property(i => i.Title).IsRequired();
@@ -54,6 +54,12 @@ namespace Interface.Data
             {
                 entity.Property(i => i.ID).UseIdentityColumn();
                 entity.Property(i => i.Name).IsRequired();
+            });
+
+            builder.Entity<RequestType>(entity =>
+            {
+                entity.Property(i => i.ID).UseIdentityColumn();
+                entity.Property(i => i.Type).IsRequired();
             });
 
             base.OnModelCreating(builder);
