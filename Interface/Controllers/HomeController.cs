@@ -374,6 +374,92 @@ namespace Interface.Controllers
 
         #endregion
 
+        #region Request Types
+
+        public JsonResult GetRequestTypes()
+        {
+            try
+            {
+                List<RequestType> requestTypes = database.RequestTypes.AsNoTracking().ToList();
+
+                return Json(requestTypes);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SaveRequestType(RequestType requestType)
+        {
+            try
+            {
+                List<RequestType> requestTypes = database.RequestTypes.AsNoTracking().ToList();
+
+                if (requestType.Type == null)
+                {
+                    return Json("A type name is required");
+                }
+
+                foreach (RequestType rT in requestTypes)
+                {
+                    if (requestType.Type == rT.Type && requestType.ID != rT.ID)
+                    {
+                        return Json("A type with this name already exists");
+                    }
+                }
+
+                if (requestType.ID == 0) database.Entry(requestType).State = EntityState.Added;
+
+                else database.Entry(requestType).State = EntityState.Modified;
+
+                database.SaveChanges();
+
+                return View("Settings.RequestTypes");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteRequestType(int requestTypeId)
+        {
+            try
+            {
+                RequestType requestType = database.RequestTypes.AsNoTracking().SingleOrDefault(i => i.ID == requestTypeId);
+
+                database.Entry(requestType).State = EntityState.Deleted;
+
+                database.SaveChanges();
+
+                return Json("Request type deleted!");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetRequestType(int requestTypeId)
+        {
+            try
+            {
+                RequestType requestType = database.RequestTypes.AsNoTracking().SingleOrDefault(i => i.ID == requestTypeId);
+
+                return Json(requestType);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        #endregion
+
         #region RSS
 
         #endregion

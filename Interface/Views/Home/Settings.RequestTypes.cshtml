@@ -83,7 +83,7 @@
 <script>
     $(document).ready(function () {
         showRequestTypesList();
-        getRequests();
+        getRequestTypes();
     });
     var query = "";
     var tmdb_api_key = "3adb91774a2fe2901621d419e9250c19";
@@ -98,7 +98,7 @@
         $.ajax({
             method: "get",
             contentType: "application/json; charset=utf-8",
-            url: "GetRequests",
+            url: "GetRequestTypes",
             dataType: "json",
             success: function (response) {
                 console.log(response);
@@ -121,16 +121,18 @@
                             visible: false
                         },
                         {
-                            title: "Title",
-                            data: "title",
+                            title: "Type",
+                            data: "type",
                             responsivePriority: 0
                         },
                         {
-                            title: "Year",
-                            data: "year",
+                            title: "Enabled",
+                            data: "enabled",
+                            width: 60,
                             responsivePriority: 0
                         },
                         {
+                            title: 'Options',
                             data: 'id',
                             render: function (data, type, row) {
                                 var edit = '<button title="Edit" class="btn btn-icon" onclick="editRequestType(\'' + data + '\')"><i class="glyphicon glyphicon-pencil"></i></button>';
@@ -164,8 +166,8 @@
     }
 
     function showRequestTypeDetail() {
-        $("#requestListView").hide();
-        $("#requestDetailView").show();
+        $("#requestTypesListView").hide();
+        $("#requestTypeDetailView").show();
     }
 
     function showRequestTypesList() {
@@ -173,11 +175,11 @@
         $("#requestTypeDetailView").hide();
     }
 
-    function editRequestType(requestId) {
+    function editRequestType(requestTypeId) {
         clearRequestTypeDetailForm();
         $.ajax({
             method: 'get',
-            url: "GetRequest?requestId=" + requestId,
+            url: "GetRequestType?requestTypeId=" + requestTypeId,
             dataType: 'json',
             success: function (response) {
                 clearRequestTypeDetailForm();
@@ -195,14 +197,14 @@
         });
     }
 
-    function deleteRequestType(requestId) {
+    function deleteRequestType(requestTypeId) {
         $.ajax({
             method: 'post',
-            url: "DeleteRequest?id=" + requestId,
+            url: "DeleteRequestType?requestTypeId=" + requestTypeId,
             dataType: 'json',
             success: function (response) {
                 alert(response);
-                getRequests();
+                getRequestTypes();
 
             },
             error: function (xhr, err) {
