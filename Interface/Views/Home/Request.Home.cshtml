@@ -69,12 +69,7 @@
                     <div class="col-lg-12">
                         <fieldset class="form-group">
                             <label class="form-label semibold" asp-for="Type"></label>
-                            <select id="requestTypeInput" class="custom-select" asp-for="Type">
-                                <option value="Audio Book">Audio Book</option>
-                                <option value="Movie">Movie</option>
-                                <option value="TV Show">TV Show</option>
-                                <option value="TV Episode">TV Episode</option>
-                            </select>
+                            <select id="requestTypeInput" class="custom-select" asp-for="Type" asp-items="@(new SelectList(ViewBag.requestTypes, "Type", "Type"))"></select>
                         </fieldset>
                     </div>
                 </div>
@@ -82,12 +77,7 @@
                     <div class="col-lg-12">
                         <fieldset class="form-group">
                             <label class="form-label semibold" asp-for="RequestedBy"></label>
-                            <select id="requestNameInput" class="custom-select" asp-for="RequestedBy">
-                                <option value="Ann">Ann</option>
-                                <option value="Benjamin">Benjamin</option>
-                                <option value="Cherelle">Cherelle</option>
-                                <option value="KAM">KAM</option>
-                            </select>
+                            <select id="requestNameInput" class="custom-select" asp-for="RequestedBy" asp-items="@(new SelectList(ViewBag.requestUsers, "Name", "Name"))"></select>
                         </fieldset>
                     </div>
                 </div>

@@ -18,6 +18,10 @@ namespace Interface.Controllers
 
         private readonly ApplicationDbContext database;
 
+        List<RequestType> requestTypes = new List<RequestType>();
+
+        List<RequestUser> requestUsers = new List<RequestUser>();
+
         #endregion
 
         #region Logger
@@ -44,6 +48,14 @@ namespace Interface.Controllers
 
         public IActionResult Requests()
         {
+            requestTypes = database.RequestTypes.AsNoTracking().Where(i => i.Enabled == true).ToList();
+            
+            requestUsers = database.RequestUsers.AsNoTracking().Where(i => i.Active == true).ToList();
+
+            ViewBag.requestTypes = requestTypes;
+
+            ViewBag.requestUsers = requestUsers;
+
             return View("Request.Home");
         }
 
@@ -250,7 +262,16 @@ namespace Interface.Controllers
                 List<Request> requests = database.Requests.AsNoTracking().ToList();
 
                 Movie movie = new Movie();
+
                 TVShows tvShow = new TVShows();
+
+                requestTypes = database.RequestTypes.AsNoTracking().Where(i => i.Enabled == true).ToList();
+
+                requestUsers = database.RequestUsers.AsNoTracking().Where(i => i.Active == true).ToList();
+
+                ViewBag.requestTypes = requestTypes;
+
+                ViewBag.requestUsers = requestUsers;
 
                 if (request != null)
                 {
@@ -365,6 +386,55 @@ namespace Interface.Controllers
                 List<RequestUser> requestUsers = database.RequestUsers.AsNoTracking().OrderBy(x => x.Name).ToList();
 
                 return Json(requestUsers);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SaveRequestUser(RequestUser requestUser)
+        {
+            try
+            {
+                List<RequestUser> requestUsers = database.RequestUsers.AsNoTracking().ToList();
+
+                if (requestUser.Name == null)
+                {
+                    return Json("A name is required");
+                }
+
+                foreach (RequestUser rU in requestUsers)
+                {
+                    if (requestUser.Name == rU.Name && requestUser.ID != rU.ID)
+                    {
+                        return Json("A type with this name already exists");
+                    }
+                }
+
+                if (requestUser.ID == 0) database.Entry(requestUser).State = EntityState.Added;
+
+                else database.Entry(requestUser).State = EntityState.Modified;
+
+                database.SaveChanges();
+
+                return View("Settings.RequestUsers");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetRequestUser(int requestUserId)
+        {
+            try
+            {
+                RequestUser requestUser = database.RequestUsers.AsNoTracking().SingleOrDefault(i => i.ID == requestUserId);
+
+                return Json(requestUser);
             }
             catch (Exception ex)
             {
