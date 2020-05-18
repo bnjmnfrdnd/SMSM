@@ -20,5 +20,6 @@ namespace Interface.Models
         public string RequestedBy { get; set; }
         [DisplayName("Complete"), BindProperty]
         public bool IsComplete { get; set; }
+        public bool Acknowledged { get; set; }
     }
 }

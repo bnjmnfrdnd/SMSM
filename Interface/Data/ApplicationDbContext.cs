@@ -42,6 +42,7 @@ namespace Interface.Data
                 entity.Property(i => i.Type).IsRequired();
                 entity.Property(i => i.RequestedBy).IsRequired();
                 entity.Property(i => i.IsComplete).HasDefaultValue(0);
+                entity.Property(i => i.Acknowledged).HasDefaultValue(0);
             });
             
             builder.Entity<TVShows>(entity =>

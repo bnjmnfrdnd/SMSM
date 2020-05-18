@@ -396,8 +396,8 @@ select.custom-select {
 
 .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
     width: 100%;
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 10px;
+    padding-left: 10px;
     margin-right: auto;
     margin-left: auto
 }
@@ -437,4 +437,28 @@ select.custom-select {
     list-style: none;
     border-radius: .25rem;
     background-color: transparent;
+}
+
+.custom-icon {
+    line-height: none !important;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 0 !important;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
 }

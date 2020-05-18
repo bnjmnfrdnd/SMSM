@@ -158,6 +158,26 @@ namespace Interface.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult DeleteMovie(int id)
+        {
+            try
+            {
+                Movie movie = database.Movies.AsNoTracking().SingleOrDefault(i => i.ID == id);
+
+                database.Entry(movie).State = EntityState.Deleted;
+
+                database.SaveChanges();
+
+                return Json("Movie deleted!");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+
         #endregion
 
         #region TV Shows
@@ -235,6 +255,25 @@ namespace Interface.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult DeleteTVShow(int id)
+        {
+            try
+            {
+                TVShows tvShow = database.TVShows.AsNoTracking().SingleOrDefault(i => i.ID == id);
+
+                database.Entry(tvShow).State = EntityState.Deleted;
+
+                database.SaveChanges();
+
+                return Json("TV Show Deleted!");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
         #endregion
 
         #region Requests
@@ -244,7 +283,7 @@ namespace Interface.Controllers
         {
             try
             {
-                List<Request> requests = database.Requests.AsNoTracking().Where(i => i.IsComplete == false).ToList();
+                List<Request> requests = database.Requests.AsNoTracking().ToList();
                 
                 return Json(requests);
             }

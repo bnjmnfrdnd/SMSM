@@ -5,14 +5,27 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link custom-navlink" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name</a>
+    <li class="nav-item custom-navlink custom-icon">
+        <button class="btn nav-link custom-navlink" type="button" data-toggle="dropdown"><span class="material-icons">notifications</span></button>
     </li>
+
     <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link custom-navlink">Logout</button>
-        </form>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle custom-navlink" type="button" data-toggle="dropdown">@User.Identity.Name<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-navlink" asp-area="Identity" asp-page="/Account/Manage/Index">Account Settings</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link dropdown-navlink">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        
     </li>
+    
 }
 else
 {

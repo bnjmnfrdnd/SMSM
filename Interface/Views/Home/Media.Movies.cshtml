@@ -12,9 +12,10 @@
                 <div class="col-6" align="left">
                     <h2>Movies</h2>
                 </div>
+
                 <div class="col-6" align="right">
-                    <input type="button" onclick="getMovies()" value="Reset" class="btn btn-secondary" />
-                    <input type="button" onclick="addMovie()" value="Add" class="btn btn-primary" />
+                    <button class="btn" onclick="getMovies()" title="Reset"><span class="material-icons fp">restore</span></button>
+                    <button class="btn" onclick="addMovie()" title="Add"><span class="material-icons fp">add_box</span></button>
                 </div>
             </div>
             <div class="mt-3">
@@ -32,7 +33,7 @@
                     <h4 id="movieTitleHeading" class="header-title">Add Movie</h4>
                 </div>
                 <div class="col-6" align="right">
-                    <input type="button" onclick="showMovieList()" value="Back" class="btn btn-danger" />
+                    <button class="btn" onclick="showMovieList()" title="Cancel"><span class="material-icons fp">cancel</span></button>
                 </div>
             </div>
             <form method="post" autocomplete="off" asp-action="SaveMovie" asp-controller="Home">
@@ -42,27 +43,30 @@
                             <fieldset class="form-group">
                                 <label class="form-label semibold" asp-for="ID"></label>
                                 <input name="__RequestVerificationToken" type="hidden" value="<token_generated_here>">
-                                <input type="text" id="movieIDInput" class="form-control" asp-for="ID" />
+                                <input type="text" id="movieIDInput" class="custom-input" asp-for="ID" />
                             </fieldset>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <fieldset class="form-group">
                             <label class="form-label semibold" asp-for="Title"></label>
-                            <input type="text" id="movieTitleInput" class="form-control" asp-for="Title" />
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-6">
-                        <fieldset class="form-group">
-                            <label class="form-label semibold" asp-for="YYYY"></label>
-                            <input type="text" id="movieYearInput" class="form-control" asp-for="YYYY" />
+                            <input type="text" id="movieTitleInput" class="custom-input" asp-for="Title" />
                         </fieldset>
                     </div>
                 </div>
-                <input type="button" onclick="showMovieList()" value="Cancel" class="btn btn-danger" />
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <fieldset class="form-group">
+                            <label class="form-label semibold" asp-for="YYYY"></label>
+                            <input type="text" id="movieYearInput" class="custom-input" asp-for="YYYY" />
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="mt-3" align="right">
+                    <button class="btn" title="Save" id="submit"><span class="material-icons fp">save</span></button>
+                </div>
             </form>
         </div>
     </div>
@@ -114,8 +118,9 @@
                         {
                             data: 'id',
                             render: function (data, type, row) {
-                                var edit = '<button title="Edit" class="btn btn-icon btn-light" onclick="editMovie(\'' + data + '\')"><i class="mdi mdi-square-edit-outline"></i></button>';
-                                return edit;
+                                var edit = '<button title="Edit" class="btn" onclick="editMovie(\'' + data + '\')"><span class="material-icons fp">create</span></button>';
+                                var del = '<button title="Delete" class="btn" onclick="deleteMovie(\'' + data + '\')"><span class="material-icons fp">delete</span></button>';
+                                return edit + '' + del;
                             },
                             responsivePriority: 0,
                             orderable: false,
@@ -212,6 +217,23 @@
                 $("#movieIDInput").val(response.id);
                 $("#movieTitleInput").val(response.title);
                 $("#movieYearInput").val(response.yyyy);
+
+            },
+            error: function (xhr, err) {
+                alert(xhr.responseText);
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    function deleteMovie(movieId) {
+        $.ajax({
+            method: 'post',
+            url: "DeleteMovie?id=" + movieId,
+            dataType: 'json',
+            success: function (response) {
+                alert(response);
+                getMovies();
 
             },
             error: function (xhr, err) {
