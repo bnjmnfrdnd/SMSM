@@ -13,7 +13,7 @@
         <div class="card-box">
             <div class="row">
                 <div class="col-6" align="left">
-                    <h2 class="custom-h2">Request Users</h2>
+                    <h2 class="custom-h2">Users</h2>
                 </div>
                 <div class="col-6" align="right">
                     <input type="button" onclick="addRequestUser()" value="Add" class="btn custom-button" />
@@ -125,6 +125,9 @@
                         {
                             title: "Active",
                             data: "active",
+                            render: function (data, type, row) {
+                                return renderResult(data);
+                            },
                             width: 60,
                             responsivePriority: 0
                         },
@@ -132,7 +135,7 @@
                             title: 'Options',
                             data: 'id',
                             render: function (data, type, row) {
-                                var edit = '<button title="Edit" class="btn btn-icon" value="Edit" onclick="editRequestUser(\'' + data + '\')"><i class=""></i></button>';
+                                var edit = '<button title="Edit" class="btn btn-icon" value="Edit" onclick="editRequestUser(\'' + data + '\')"><span class="material-icons fp">create</span></button>';
                                 return edit;
                             },
                             responsivePriority: 0,
@@ -180,7 +183,7 @@
             success: function (response) {
                 clearRequestUserDetailForm();
                 showRequestUserDetail();
-                document.getElementById("requestUserHeading").innerHTML = response.title;
+                document.getElementById("requestUserHeading").innerHTML = response.name;
                 $("#requestIDInput").val(response.id);
                 $("#requestUserNameInput").val(response.name);
                 $("#requestUserActiveInput").prop('checked', response.active);

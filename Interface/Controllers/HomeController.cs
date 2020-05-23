@@ -278,6 +278,22 @@ namespace Interface.Controllers
 
         #region Requests
 
+        [HttpPost]
+        public IActionResult SortMovieSearch(JsonResult jsonResult)
+        {
+            try
+            {
+                Movie newMovie = new Movie();
+                List<Movie> movies = new List<Movie>();
+
+                return Json("");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
         [HttpGet]
         public JsonResult GetRequests()
         {

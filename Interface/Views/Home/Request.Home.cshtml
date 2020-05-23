@@ -56,7 +56,7 @@
                     <div class="col-lg-12">
                         <fieldset class="form-group">
                             <label class="form-label semibold" asp-for="Title"></label>
-                            <input type="text" id="requestTitleInput" class="custom-input" asp-for="Title" />
+                            <input type="text" id="requestTitleInput" class="custom-input" asp-for="Title" onchange="searchMovies()"/>
                         </fieldset>
                     </div>
                 </div>
@@ -120,6 +120,39 @@
         showRequestDetail();
     }
 
+    function searchMovies(query) {
+        var api_key = '3adb91774a2fe2901621d419e9250c19';
+
+        query = 'Bee movie';
+        
+        $.ajax({
+            method: 'get',
+            url: 'https://api.themoviedb.org/3/search/movie?api_key=' + api_key + '&language=en-US&query=' + query + '&page=1&include_adult=false',
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                console.log(result.title);
+            }
+        });
+    }
+
+    function sortMovieSearch(moviesResult) {
+        var movies = {
+            moviesArray: moviesResult
+        }
+
+        $.ajax({
+            method: "post",
+            contentType: "application/json; charset=utf-8",
+            url: "SortMovieSearch",
+            data: JSON.stringify(movies),
+            success: function (response) {
+
+            }
+        });
+    }
+
     function getRequests() {
         $.ajax({
             method: "get",
@@ -127,7 +160,6 @@
             url: "GetRequests",
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 var requestsDataTable = $("#requestsDataTable").dataTable({
                     responsive: true,
                     searching: true,

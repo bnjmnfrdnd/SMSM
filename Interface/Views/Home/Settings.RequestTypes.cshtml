@@ -13,7 +13,7 @@
         <div class="card-box">
             <div class="row">
                 <div class="col-6" align="left">
-                    <h2 class="custom-h2">Request Types</h2>
+                    <h2 class="custom-h2">Types</h2>
                 </div>
                 <div class="col-6" align="right">
                     <input type="button" onclick="addRequestType()" value="Add" class="btn custom-button" />
@@ -125,6 +125,9 @@
                         {
                             title: "Enabled",
                             data: "enabled",
+                            render: function (data, type, row) {
+                                return renderResult(data);
+                            },
                             width: 60,
                             responsivePriority: 0
                         },
@@ -132,7 +135,7 @@
                             title: 'Options',
                             data: 'id',
                             render: function (data, type, row) {
-                                var edit = '<button title="Edit" class="btn btn-icon" value="Edit" onclick="editRequestType(\'' + data + '\')"><i class=""></i></button>';
+                                var edit = '<button title="Edit" class="btn btn-icon" value="Edit" onclick="editRequestType(\'' + data + '\')"><span class="material-icons fp">create</span></button>';
                                 return edit;
                             },
                             responsivePriority: 0,
@@ -180,7 +183,7 @@
             success: function (response) {
                 clearRequestTypeDetailForm();
                 showRequestTypeDetail();
-                document.getElementById("requestTypeHeading").innerHTML = response.title;
+                document.getElementById("requestTypeHeading").innerHTML = response.type;
                 $("#requestIDInput").val(response.id);
                 $("#requestTypeInput").val(response.type);
                 $("#requestEnabledInput").prop('checked', response.enabled);

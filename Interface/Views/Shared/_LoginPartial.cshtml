@@ -2,38 +2,38 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item custom-navlink custom-icon">
-        <button class="btn nav-link custom-navlink" type="button" data-toggle="dropdown"><span class="material-icons">notifications</span></button>
-    </li>
+<ul class="navbar-nav flex-grow-1">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item custom-navlink custom-icon">
+            <button class="btn nav-link custom-navlink" type="button" data-toggle="dropdown"><span class="material-icons">notifications</span></button>
+        </li>
 
-    <li class="nav-item">
-        <div class="dropdown">
-            <button class="btn dropdown-toggle custom-navlink" type="button" data-toggle="dropdown">@User.Identity.Name<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li class="nav-item">
-                    <a class="nav-link dropdown-navlink" asp-area="Identity" asp-page="/Account/Manage/Index">Account Settings</a>
-                </li>
-                <li class="nav-item">
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                        <button type="submit" class="nav-link btn btn-link dropdown-navlink">Logout</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-        
-    </li>
-    
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link custom-navlink" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link custom-navlink" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+        <li class="nav-item custom-navlink">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle nav-link custom-navlink" type="button" data-toggle="dropdown">@User.Identity.Name<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-navlink" asp-area="Identity" asp-page="/Account/Manage/Index">Account Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link dropdown-navlink">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link custom-navlink" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link custom-navlink" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>
