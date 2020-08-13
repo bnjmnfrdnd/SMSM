@@ -63,7 +63,7 @@ namespace Interface.Controllers
         {
             return View("Media.Movies");
         }
-
+ 
         public IActionResult TVShows()
         {
             return View("Media.TVShows");
@@ -176,8 +176,6 @@ namespace Interface.Controllers
                 return Json(ex.Message);
             }
         }
-
-
         #endregion
 
         #region TV Shows
@@ -586,6 +584,9 @@ namespace Interface.Controllers
         #endregion
 
         #region RSS
+
+        //Uri baseAddress = new Uri("http://localhost:8000/NewAdditionFeed");
+        //WebServiceHost webServiceHost = new WebServiceHost(typeof(), baseAddress);
 
         #endregion
     }

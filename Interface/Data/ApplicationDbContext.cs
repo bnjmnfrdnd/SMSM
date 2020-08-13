@@ -24,7 +24,8 @@ namespace Interface.Data
         public DbSet<RequestUser> RequestUsers { get; set; } 
         public DbSet<RequestType> RequestTypes { get; set; } 
         public DbSet<Movie> Movies { get; set; } 
-        public DbSet<TVShows> TVShows { get; set; }
+        public DbSet<TVShows> TVShows { get; set; } 
+        public DbSet<TVShows> Notifications { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
