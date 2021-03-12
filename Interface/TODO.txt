@@ -1,0 +1,11 @@
+﻿TODO: Benjamin
+
+1. Fix layout on login screen
+2. Fix layout on register screen
+3. Notifications screen 
+4. Notifications table
+5. 'Requested on' date formatting on tables
+6. IMDb/TheMovieDb API integration and admin screen
+7. Account settings screen needs adjusting
+8. Remove 'Confirm email' after registering account
+9. Implement permissions for users when creating requests e.g. 'Complete' should be visible for admin only

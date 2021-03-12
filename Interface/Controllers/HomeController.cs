@@ -429,6 +429,17 @@ namespace Interface.Controllers
 
         #endregion
 
+        #region Notifications
+
+        //public IActionResult GetNotifications()
+        //{
+        //    List<Notification> notifications = database.Notifications.AsNoTracking().ToList();
+
+        //    return Json(notifications);
+        //}
+
+        #endregion
+
         #region Request Users
 
         [HttpGet]

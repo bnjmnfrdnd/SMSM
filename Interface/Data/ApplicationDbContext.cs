@@ -64,6 +64,30 @@ namespace Interface.Data
                 entity.Property(i => i.Type).IsRequired();
             });
 
+            builder.Entity<RequestType>().HasData(
+            new RequestType
+            {
+                ID = -1,
+                Type = "Movie",
+                Enabled = true,
+            });
+
+            builder.Entity<RequestType>().HasData(
+            new RequestType
+            {
+                ID = -2,
+                Type = "TV Show",
+                Enabled = true,
+            });
+
+            builder.Entity<RequestUser>().HasData(
+            new RequestUser
+            {
+                ID = -1,
+                Name = "Guest",
+                Active = true,
+            });
+
             base.OnModelCreating(builder);
         }
     }
