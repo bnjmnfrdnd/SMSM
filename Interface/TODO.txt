@@ -9,3 +9,4 @@
 7. Account settings screen needs adjusting
 8. Remove 'Confirm email' after registering account
 9. Implement permissions for users when creating requests e.g. 'Complete' should be visible for admin only
+10. Disable account creation after admin has been created
